@@ -14,11 +14,11 @@ var Iniciar = {
         juego.load.image('nave', 'img/nave.png')
         juego.load.image('bala', 'img/bala.png')
         juego.load.image('malo', 'img/asteroide.png')
-        juego.load.image('fondo', 'img/fondo.png')
+        juego.load.image('fondo', "img/fondo.png")
     },
     create: function() {
         //mostrar en pantalla
-        juego.add.tileSprite(0, 0, 400, 540, 'bg');
+        juego.add.tileSprite(0, 0, 400, 540, 'fondo');
         //agregar el canvas a la nave
         nave = juego.add.sprite(40, juego.height / 2, 'nave');
         //punto de apoyo centrado
@@ -33,7 +33,7 @@ var Iniciar = {
         balas = juego.add.group();
         balas.enableBody = true;
         balas.setBodyType = Phaser.Phisics.ARCADE;
-        balas.createMultiple(20, 'laser');
+        balas.createMultiple(20, 'bala');
         balas.setAll('anchor.x', 0.5);
         balas.setAll('anchor.y', 1);
         balas.setAll('checkWorldBouds', true);
@@ -42,7 +42,7 @@ var Iniciar = {
         malos = juego.add.group();
         malos.enableBody = true;
         malos.setBodyType = Phaser.Physics.ARCADE;
-        malos.createMultiple(20, 'malo');
+        malos.createMultiple(20, 'asteroide');
         malos.setAll('anchor.x', 0.5);
         malos.setAll('anchor.y', 1);
         malos.setAll('checkWorldBounds', true);
