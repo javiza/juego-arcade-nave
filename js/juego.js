@@ -21,10 +21,11 @@ var Iniciar = {
         juego.add.tileSprite(0, 0, 400, 540, 'fondo');
         //agregar el canvas a la nave
         nave = juego.add.sprite(40, juego.height / 2, 'nave');
+        console.log(nave)
         //punto de apoyo centrado
         nave.anchor.setTo(0.5);
         //agregar funciones de fisica de tipo Arcade
-        juego.physics.startSystem(Phaser.Phisics.ARCADE);
+        juego.physics.startSystem(Phaser.Physics.ARCADE);
         //activar fisica para la nave
         juego.physics.arcade.enable(nave, true);
         // limitar el giro de la nave 
@@ -32,7 +33,7 @@ var Iniciar = {
         //crear balas
         balas = juego.add.group();
         balas.enableBody = true;
-        balas.setBodyType = Phaser.Phisics.ARCADE;
+        balas.setBodyType = Phaser.Physics.ARCADE;
         balas.createMultiple(20, 'bala');
         balas.setAll('anchor.x', 0.5);
         balas.setAll('anchor.y', 1);
