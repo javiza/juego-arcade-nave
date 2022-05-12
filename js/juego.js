@@ -3,6 +3,10 @@ var balas;
 var timer = 0;
 var delay = 400;
 var aparecer;
+var puntos;
+var vidas;
+var txtPuntos;
+var txtVidas;
 
 var Iniciar = {
     preload: function(){
@@ -45,21 +49,38 @@ var Iniciar = {
         malos.setAll('outOfBoundsKill', true);
         //ciclo de enemigos
         //loop(time,funcionloop)
-        aparecer = juego.time.events.loop(1500, this.crearEnemigo, this)
+        aparecer = juego.time.events.loop(1500, this.crearEnemigo, this);
+        //logica puntajes y vidas 
+        puntos = 0;
+        juego.add.text(20, 20, "Puntos", { font: "14px Arial", fill: "#FFF"});
+        txtPuntos = juego.add.text(80, 20, "0", { font: "14px Arial", fill: "#FFF"});
+        //vidas
+        vidas = 5;
+        juego.add.text(310, 20, "Vidas:", { font: "14px Arial", fill: "#FFF"});
+        txtVidas = juego.add.text(360, 20, "5", { font: "14px Arial", fill: "#FFF"});
     },
 
     update: function() {
         //animar juego
         fondoJuego.tilePosition.x -= 3;
-        nave.rotation = 
-        juego.physics.arcade.angleToPointer(nave);
+        nave.rotation = juego.physics.arcade.angleToPointer(nave);
         //disparar balas
         if(juego.imput.activePointer.isDown){
             this.disparar();
         }
         //colision de rocas y balas
         juego.physics.arcade.overlap(balas, malos, this.colision, null, this);
-        
+        //colision que quita vidas
+        malos.forEachAlive(function(m) {
+            if(m.position.x > 10 && m.position.x <12){
+                vidas -= 1;
+                txtVidas.text = vidas;
+            }
+        });
+        //logica game over
+        if(vidas == 0){
+            juego.state.start('TERMINADO');
+        }
     },
     //funcion disparar una sola bala
     disparar: function(){
@@ -89,5 +110,7 @@ var Iniciar = {
     colision: function(bala, malo){
         bala.kill();
         malo.kill();
+        puntos++;
+        txtPuntos.text = puntos;
     }
 };
